@@ -2,19 +2,19 @@
   width: 90%;
   max-width: 600px;
   margin: 1rem auto 0;
-  padding: 12px;
+  padding: 0 12px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   box-sizing: border-box;
 }
 
 .todo {
   width: 90%;
-  padding: 5px 10px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  margin: 0 auto 10px;
+  margin: 10px auto;
 }
 
 .icons-box > svg {
@@ -30,6 +30,7 @@
 }
 
 .todo > h2 {
+  margin: 0;
   font-size: 1.5rem;
   font-weight: 500;
 }

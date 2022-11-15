@@ -1,32 +1,45 @@
-import { createContext, useState } from 'react'
+import { createContext, useState } from "react";
 
-export const TodoContext = createContext()
+export const TodoContext = createContext();
 
 export default function TodoProvider({ children }) {
-  const [todos, setTodos] = useState([])
-  const [editValue, setEditValue] = useState('')
+  const [todos, setTodos] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentTodo, setCurrentTodo] = useState({});
 
   const addTodo = (todo) => {
     const newTodo = {
       task: todo.task,
       status: false,
-    }
-    setTodos([...todos, newTodo])
-  }
+    };
+    setTodos([...todos, newTodo]);
+  };
 
   const removeTodo = (id) => {
-    const filteredTodos = todos.filter((todo, index) => index !== id)
-    setTodos(filteredTodos)
-  }
+    const filteredTodos = todos.filter((todo, index) => index !== id);
+    setTodos(filteredTodos);
+  };
 
-  const editTodoSelect = (task) => {
-    const selectedTask = todos.find((todo, index) => todo.task === task)
-    setEditValue(selectedTask.task)
+  function handleEditInputChange(e) {
+    // set the new state value to what's currently in the edit input box
+    setCurrentTodo({ ...currentTodo, text: e.target.value });
+    console.log(currentTodo);
   }
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo, removeTodo }}>
+    <TodoContext.Provider
+      value={{
+        todos,
+        addTodo,
+        removeTodo,
+        currentTodo,
+        setCurrentTodo,
+        handleEditInputChange,
+        isEditing,
+        setIsEditing,
+      }}
+    >
       {children}
     </TodoContext.Provider>
-  )
+  );
 }
