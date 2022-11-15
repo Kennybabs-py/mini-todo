@@ -9,6 +9,7 @@ export default function TodoProvider({ children }) {
 
   const addTodo = (todo) => {
     const newTodo = {
+      id: todos.length + 1,
       task: todo.task,
       status: false,
     };
@@ -16,15 +17,35 @@ export default function TodoProvider({ children }) {
   };
 
   const removeTodo = (id) => {
-    const filteredTodos = todos.filter((todo, index) => index !== id);
+    const filteredTodos = todos.filter((todo) => todo.id !== id);
     setTodos(filteredTodos);
   };
 
   function handleEditInputChange(e) {
-    // set the new state value to what's currently in the edit input box
-    setCurrentTodo({ ...currentTodo, text: e.target.value });
+    setCurrentTodo({ ...currentTodo, task: e.target.value });
     console.log(currentTodo);
   }
+
+  function handleEditClick(todo) {
+    setIsEditing(true);
+    setCurrentTodo({ ...todo });
+  }
+
+  function handleUpdateTodo(id, updatedTodo) {
+    const updatedItem = todos.map((todo) => {
+      return todo.id === id ? updatedTodo : todo;
+    });
+    setIsEditing(false);
+    setTodos(updatedItem);
+  }
+
+  function handleEditFormSubmit(e) {
+    e.preventDefault();
+    handleUpdateTodo(currentTodo.id, currentTodo);
+  }
+
+  console.log(todos);
+  console.log(currentTodo);
 
   return (
     <TodoContext.Provider
@@ -37,6 +58,9 @@ export default function TodoProvider({ children }) {
         handleEditInputChange,
         isEditing,
         setIsEditing,
+        handleEditClick,
+        handleUpdateTodo,
+        handleEditFormSubmit,
       }}
     >
       {children}

@@ -5,22 +5,22 @@ import { TodoContext } from "../../context/todoContext";
 import "./todos.css";
 
 function Todos() {
-  const { todos, removeTodo, isEditing, setIsEditing } =
+  const { todos, removeTodo, isEditing, handleEditClick } =
     useContext(TodoContext);
 
   return (
     <div className="todos">
       {isEditing ? <EditTodo /> : null}
 
-      {todos?.map((todo, index) => {
+      {todos?.map((todo) => {
         return (
-          <div key={index} className="todo">
+          <div key={todo.id} className="todo">
             <h2>{todo.task}</h2>
             <div className="icons-box">
-              <MdDelete onClick={() => removeTodo(index)} />
+              <MdDelete onClick={() => removeTodo(todo.id)} />
               <MdEdit
                 onClick={() => {
-                  setIsEditing(true);
+                  handleEditClick(todo);
                 }}
               />
             </div>
