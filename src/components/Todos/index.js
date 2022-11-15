@@ -12,6 +12,15 @@ function Todos() {
     <div className="todos">
       {isEditing ? <EditTodo /> : null}
 
+      <div className="todos_number">
+        {" "}
+        {todos.length === 0 ? (
+          <h2>You have no tasks</h2>
+        ) : (
+          <h2>{`${todos.length} ${todos.length === 1 ? "task" : "tasks"}`}</h2>
+        )}
+      </div>
+
       {todos?.map((todo) => {
         return (
           <div key={todo.id} className="todo">

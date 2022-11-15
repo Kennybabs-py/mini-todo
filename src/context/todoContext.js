@@ -23,7 +23,6 @@ export default function TodoProvider({ children }) {
 
   function handleEditInputChange(e) {
     setCurrentTodo({ ...currentTodo, task: e.target.value });
-    console.log(currentTodo);
   }
 
   function handleEditClick(todo) {
